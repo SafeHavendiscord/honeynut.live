@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 108dp adaptive-icon canvas; the art stays inside the middle 66dp safe zone -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- two beamed eighth notes -->
+    <path android:fillColor="@color/honey"
+        android:pathData="M44,36 L72,30 L72,64 A7,6 0 1,1 68,58.5 L68,40 L48,44.3 L48,70 A7,6 0 1,1 44,64.5 Z" />
+</vector>

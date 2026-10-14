@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HoneyNUT Ringtone Maker</string>
+    <string name="tagline">Turn any video into an MP3</string>
+    <string name="pick">Pick a video</string>
+    <string name="intro">Pick a video and its sound will be saved as an MP3 in your Music folder.\n\nTip: you can also Share a video from your Gallery to this app.</string>
+    <string name="converting">Converting… keep the app open.</string>
+    <string name="saved">Saved \"%1$s\"\nin %2$s</string>
+    <string name="failed">Sorry, that didn\'t work: %1$s</string>
+    <string name="play">▶  Play it</string>
+    <string name="stop">■  Stop</string>
+</resources>

@@ -123,3 +123,14 @@ Everything lives in one file, in three parts. Each part has labeled section comm
 - Photo-real aquarium fish if the owner sends fish images with transparent backgrounds. The current fish are drawn in SVG.
 - Hosting the DOOM emulator on the site itself instead of loading it from js-dos.com, and/or pinning a fixed js-dos version instead of `latest`.
 - More HoneyNUT-only easter eggs. The wallpaper is the first one; `onLogin()` in the Sign-in section is the hook for more.
+
+---
+
+## Android app: HoneyNUT Ringtone Maker (`android-app/`)
+
+A separate Android app (not part of the website) that turns videos into MP3s / ringtones.
+- Kotlin, plain Android views (no AndroidX UI libraries), minSdk 29 (Android 10+).
+- Audio is decoded with Android's own `MediaExtractor`/`MediaCodec`, then encoded to MP3 by **LAME 3.100** (LGPL), vendored as C source in `app/src/main/cpp/lame/` and built with the NDK (`mp3_jni.c` is the bridge).
+- MP3s are saved to `Music/HoneyNUT Ringtones` via MediaStore (no storage permission needed).
+- **It is built on GitHub, not in the Claude Code container** (the container's network blocks Google's Android SDK downloads). `.github/workflows/android-app.yml` builds the APK, runs the converter tests on an emulator with ffmpeg-made test videos, takes a screenshot, and uploads the APK + screenshot as run artifacts.
+- The signing key is kept in the Actions cache so updates install over the old app; if the cache expires (7 days unused) the next APK needs an uninstall first.
