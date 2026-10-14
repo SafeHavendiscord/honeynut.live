@@ -31,8 +31,14 @@ jobs:
       - name: Reuse signing key
         uses: actions/cache@v4
         with:
-          path: ~/.android/debug.keystore
-          key: honeynut-ringtone-debug-keystore
+          path: android-app/ci-debug.keystore
+          key: honeynut-ringtone-ci-keystore
+
+      - name: Make a signing key (first build only)
+        run: |
+          [ -f ci-debug.keystore ] || keytool -genkeypair -keystore ci-debug.keystore \
+            -storepass android -keypass android -alias androiddebugkey \
+            -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=HoneyNUT Ringtone Maker"
 
       - name: Make test videos
         run: |
@@ -83,3 +89,19 @@ jobs:
             android-app/screenshot.png
             android-app/app/build/reports/androidTests/
           if-no-files-found: ignore
+
+      # Lets Claude look at the screenshot from the log (it can't download artifacts).
+      - name: Print small screenshot
+        if: always()
+        run: |
+          [ -f screenshot.png ] || exit 0
+          python3 -c "import sys" && pip install -q pillow >/dev/null 2>&1 || true
+          python3 - <<'PY'
+          from PIL import Image; import base64, io
+          im = Image.open("screenshot.png").convert("RGB"); im.thumbnail((360, 800))
+          b = io.BytesIO(); im.save(b, "JPEG", quality=60)
+          s = base64.b64encode(b.getvalue()).decode()
+          print("SCREENSHOT-BEGIN")
+          for i in range(0, len(s), 4000): print(s[i:i+4000])
+          print("SCREENSHOT-END")
+          PY

@@ -23,6 +23,14 @@ android {
         cmake { path = file("src/main/cpp/CMakeLists.txt") }
     }
 
+    signingConfigs {
+        // The GitHub build keeps one key so new versions install over old ones.
+        getByName("debug") {
+            val ciKey = rootProject.file("ci-debug.keystore")
+            if (ciKey.exists()) storeFile = ciKey
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false

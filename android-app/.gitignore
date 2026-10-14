@@ -5,3 +5,4 @@ local.properties
 *.iml
 .idea/
 src/androidTest/assets/
+ci-debug.keystore
